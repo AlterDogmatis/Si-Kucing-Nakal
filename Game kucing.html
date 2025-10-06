@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💖 Kirana Menangkap Astut</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(to top, #ffd6e0, #87ceeb);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #gameArea {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #87ceeb 0%, #ffd6e0 100%);
+    }
+    #kirana {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 100px;
+      background: #ff69b4;
+      border-radius: 50% 50% 0 0;
+      z-index: 10;
+    }
+    #kirana::before {
+      content: '👧';
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 60px;
+    }
+    .astut {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      background: #ffa500;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+    }
+    .astut::before {
+      content: '🐱';
+    }
+    #hud {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255,255,255,0.9);
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 100;
+    }
+    #timer {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.9);
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 18px;
+      z-index: 100;
+    }
+    .overlay {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      font-size: 20px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      animation: fadeIn 0.5s ease-in-out;
+      z-index: 200;
+    }
+    .overlay.show {
+      display: flex;
+    }
+    .overlay-content {
+      background: rgba(255,255,255,0.15);
+      border: 2px solid #ff69b4;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 600px;
+      box-shadow: 0 0 20px #ff69b4;
+    }
+    .btn {
+      margin-top: 20px;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+    .btn:hover {
+      background: #ff1493;
+      transform: scale(1.05);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div id="gameArea">
+    <div id="kirana"></div>
+    <div id="hud">❤️ 5 | ⭐ 0</div>
+    <div id="timer">⏰ 60</div>
+
+    <!-- Layar awal -->
+    <div id="startScreen" class="overlay show">
+      <div class="overlay-content">
+        <h1 class="text-3xl font-bold text-pink-300 mb-4">🐱 Kirana Menangkap Astut 💕</h1>
+        <p class="text-lg">Gunakan panah kiri ⬅️ dan kanan ➡️ untuk membantu Kirana menangkap si kucing nakal Astut!<br><br>
+        Dapatkan <strong>40 poin</strong> untuk memenangkan hatinya 💖</p>
+        <button class="btn" id="startBtn">Mulai Game</button>
+      </div>
+    </div>
+
+    <!-- Surat cinta -->
+    <div id="loveLetter" class="overlay">
+      <div class="overlay-content">
+        <h1 class="text-3xl font-bold mb-4 text-pink-300">💌 Surat Cinta dari Bisma 💌</h1>
+        <p class="text-lg leading-relaxed">
+          Hallo sayaanggg<br><br>
+          Hebat sekali kamu sayang Kamu berhasil menangkap Astut! 🐱💕<br><br>
+          you do a great job sayang, im proud of you sayang
+          but any way
+          kamu sadar gak sih, kamu itu selalu melakukan yang terbaik
+          untuk semua tugas tugas yang diberikan ke kamu
+          walaupun kamu capek, pusing, lelah, sakit-sakit, tertekan,
+          tapi kamu selalu bisa memendam itu semua
+          dan kamu tetap bangkit kembali.
+          terimakasih yaa sayangku untuk keberadaanmu di sisiku,
+          dan juga terimakasih untuk keberanian kamu
+          untuk menjalani hari harimu yang berat.
+
+          Tapi kamu tahu gak? Yang sebenarnya kamu tangkap hari ini bukan cuma Astut...  
+          tapi juga hatikuu 💖<br><br>
+          Kamu selalu jadi alasan kenapa aku tersenyum setiap hari,<br>
+          dan semoga,kamu selalu ingat bahwasannya cintaku padamu itu
+          sangat besar sayang, 
+          semoga cinta kita selalu bertumbuh setiap harinya yaa. ☀️<br><br>
+
+          Dari Bisma, yang selalu sayang kamu — selamanya 💞
+        </p>
+        <button class="btn" onclick="location.reload()">Main Lagi</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const gameArea = document.getElementById("gameArea");
+    const kirana = document.getElementById("kirana");
+    const hud = document.getElementById("hud");
+    const timerDisplay = document.getElementById("timer");
+    const loveLetter = document.getElementById("loveLetter");
+    const startScreen = document.getElementById("startScreen");
+    const startBtn = document.getElementById("startBtn");
+
+    let score = 0;
+    let lives = 5;
+    let timeLeft = 60;
+    let gameRunning = false;
+    let kiranaX = window.innerWidth / 2;
+    let timerInterval;
+    let spawnTimeout;
+
+    startBtn.addEventListener("click", startGame);
+
+    function startGame() {
+      startScreen.classList.remove('show');
+      gameRunning = true;
+      kiranaX = window.innerWidth / 2;
+      score = 0;
+      lives = 5;
+      timeLeft = 60;
+      updateHUD();
+      timerDisplay.textContent = "⏰ 60";
+      kirana.style.left = kiranaX - 45 + "px"; // Center properly
+
+      timerInterval = setInterval(updateTimer, 1000);
+      spawnAstut();
+    }
+
+    function updateHUD() {
+      hud.textContent = `❤️ ${lives} | ⭐ ${score}`;
+    }
+
+    function updateTimer() {
+      if (!gameRunning) return;
+      timeLeft--;
+      timerDisplay.textContent = "⏰ " + timeLeft;
+      if (timeLeft <= 0) {
+        gameOver();
+      }
+    }
+
+    // Gerak kiri-kanan Kirana
+    document.addEventListener("keydown", (e) => {
+      if (!gameRunning) return;
+      const step = 40;
+      if (e.key === "ArrowLeft" && kiranaX > 50) {
+        kiranaX -= step;
+      }
+      if (e.key === "ArrowRight" && kiranaX < window.innerWidth - 50) {
+        kiranaX += step;
+      }
+      kirana.style.left = kiranaX - 45 + "px";
+    });
+
+    // Spawn Astut
+    function spawnAstut() {
+      if (!gameRunning) return;
+      
+      const astut = document.createElement("div");
+      astut.classList.add("astut");
+      astut.style.left = Math.random() * (window.innerWidth - 100) + 50 + "px";
+      astut.style.top = "-70px";
+      gameArea.appendChild(astut);
+
+      let fall = setInterval(() => {
+        if (!gameRunning) {
+          clearInterval(fall);
+          astut.remove();
+          return;
+        }
+
+        let top = parseInt(astut.style.top) || 0;
+        astut.style.top = top + 7 + "px";
+
+        const kiranaRect = kirana.getBoundingClientRect();
+        const astutRect = astut.getBoundingClientRect();
+
+        // Deteksi collision
+        if (
+          astutRect.bottom >= kiranaRect.top &&
+          astutRect.left < kiranaRect.right &&
+          astutRect.right > kiranaRect.left &&
+          astutRect.top <= kiranaRect.bottom
+        ) {
+          score++;
+          updateHUD();
+          astut.remove();
+          clearInterval(fall);
+
+          if (score >= 40) {
+            showLoveLetter();
+          }
+        } 
+        // Jika jatuh ke bawah
+        else if (top > window.innerHeight) {
+          lives--;
+          updateHUD();
+          astut.remove();
+          clearInterval(fall);
+          
+          if (lives <= 0) {
+            gameOver();
+          }
+        }
+      }, 40);
+
+      // Spawn next astut
+      spawnTimeout = setTimeout(() => spawnAstut(), 700 + Math.random() * 700);
+    }
+
+    function showLoveLetter() {
+      gameRunning = false;
+      clearInterval(timerInterval);
+      clearTimeout(spawnTimeout);
+      loveLetter.classList.add('show');
+    }
+
+    function gameOver() {
+      gameRunning = false;
+      clearInterval(timerInterval);
+      clearTimeout(spawnTimeout);
+      
+      loveLetter.innerHTML = `
+        <div class="overlay-content">
+          <h1 class="text-3xl font-bold mb-4 text-red-400">💔 Game Over 💔</h1>
+          <p class="text-lg">Kirana kehabisan nyawa... tapi cinta Bisma gak akan pernah habis ❤️<br><br>
+          Score: <strong>${score}</strong> poin</p>
+          <button class="btn" onclick="location.reload()">Main Lagi</button>
+        </div>
+      `;
+      loveLetter.classList.add('show');
+    }
+  </script>
+</body>
+</html>
